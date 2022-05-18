@@ -5,13 +5,9 @@ Vue.use(VueRouter)
 
 
 import Index from "../views/index.vue"
-// import Home from "../views/Home.vue"
-// import Shopcar from "../views/Shopcar.vue"
 import My from "../views/User.vue"
 import Goodslist from "../views/Goodslist.vue"
 import Order from "../views/Order.vue"
-
-
 
 
 // 创建 router 实例

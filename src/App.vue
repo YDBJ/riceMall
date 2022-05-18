@@ -39,6 +39,12 @@ export default {
 };
 </script>
 <style lang="scss">
+html {
+  scroll-behavior: smooth;
+}
+* {
+  box-sizing: border-box;
+}
 .App {
   ul {
     li {
@@ -46,10 +52,10 @@ export default {
     }
   }
 }
-// .app {
-//   min-width: 320px;
-//   max-width: 750px;
-//   margin: 0 auto;
-// }
+.app {
+  min-width: 320px;
+  max-width: 750px;
+  margin: 0 auto;
+}
 </style>
 
