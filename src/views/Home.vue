@@ -19,7 +19,7 @@
 
     <!-- 九宫格 -->
     <van-grid :column-num="4">
-      <van-grid-item v-for="item in gridData" :key="item.src">
+      <van-grid-item v-for="item in gridData" :key="item.src" :to="item.to">
         <div class="jiuGrid">
           <img :src="item.src" alt="" />
           <span class="text">{{ item.text }}</span>
@@ -32,18 +32,13 @@
 
     <!-- 商品列表：数据 -->
     <div class="goodsData">
-      <div class="item" v-for="item in goodsList" :key="item.id">
-        <div class="imgWrap flex_c_c">
-          <img v-lazy="item.img_url" alt="" />
-        </div>
-        <div class="title line">
-          {{ item.title }}
-        </div>
-        <div class="price">
-          <span class="currentPrice">&yen;{{ item.sell_price }}</span>
-          <span class="mun">{{ item.buy }} 购买</span>
-        </div>
-      </div>
+      <Goods
+        v-for="item in goodsList"
+        :key="item.id"
+        @goodClick="clickHandle"
+        :data="item"
+      >
+      </Goods>
     </div>
 
     <!-- 回到顶部组件 -->
@@ -52,6 +47,8 @@
 </template>
 
 <script>
+// 商品列表：数据
+import Goods from "../components/Goods.vue";
 // 导入接口
 import { gainSwipe, gainGoods } from "../api/home.js";
 // 九宫格组件
@@ -74,14 +71,14 @@ export default {
       page: 1,
       limit: 10,
       gridData: [
-        { src: menu1, text: "乐淘超市" },
-        { src: menu2, text: "新闻列表" },
-        { src: menu3, text: "乐淘生鲜" },
-        { src: menu4, text: "生活缴费" },
-        { src: menu5, text: "领津贴" },
-        { src: menu6, text: "plus会员" },
-        { src: menu7, text: "领乐豆" },
-        { src: menu8, text: "更多" },
+        { src: menu1, text: "乐淘超市", to: "/goodslist" },
+        { src: menu2, text: "新闻列表", to: "/goodslist" },
+        { src: menu3, text: "乐淘生鲜", to: "/goodslist" },
+        { src: menu4, text: "生活缴费", to: "/goodslist" },
+        { src: menu5, text: "领津贴", to: "/goodslist" },
+        { src: menu6, text: "plus会员", to: "/goodslist" },
+        { src: menu7, text: "领乐豆", to: "/goodslist" },
+        { src: menu8, text: "更多", to: "/goodslist" },
       ],
       goodsList: [],
     };
@@ -102,9 +99,14 @@ export default {
       let data = await gainGoods(this.page, this.limit);
       this.goodsList = data.message;
     },
+    clickHandle({ data }) {
+      // 跳转到商品详情页
+      this.$router.push(`/goodsDetail/${data.id}`);
+    },
   },
   components: {
     BackTop,
+    Goods,
   },
 };
 </script>
@@ -164,58 +166,6 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
     background: rgba(234, 231, 231, 0.368627451);
-
-    .item {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      width: 49%;
-      background-color: #fff;
-      padding: 6px;
-      border-radius: 4px;
-      margin-bottom: 6px;
-      .imgWrap {
-        height: 124px;
-        overflow: hidden;
-        width: 100%;
-        img {
-          height: 100%;
-        }
-      }
-      .flex_c_c {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .title {
-        padding: 10px 0;
-        color: #000;
-      }
-
-      // 省略号
-      .line {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .price {
-        display: flex;
-        justify-content: space-between;
-
-        .currentPrice {
-          color: #ff4142;
-          font-size: 16px;
-          font-weight: 700;
-        }
-
-        .num {
-          font-size: 12px;
-          color: #999;
-        }
-      }
-    }
   }
 }
 </style>

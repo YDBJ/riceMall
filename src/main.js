@@ -20,7 +20,10 @@ import {
   GridItem,
   Divider,
   Sticky,
-  Lazyload
+  Lazyload,
+  PullRefresh,
+  List,
+  Cell,
 } from 'vant';
 
 Vue.use(Button);
@@ -35,6 +38,9 @@ Vue.use(GridItem);
 Vue.use(Divider);
 Vue.use(Sticky);
 Vue.use(Lazyload);
+Vue.use(PullRefresh);
+Vue.use(List);
+Vue.use(Cell);
 
 // 注册时可以配置额外的选项
 Vue.use(Lazyload, {

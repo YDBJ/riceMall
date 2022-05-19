@@ -8,6 +8,7 @@ import Index from "../views/index.vue"
 import My from "../views/User.vue"
 import Goodslist from "../views/Goodslist.vue"
 import Order from "../views/Order.vue"
+import GoodsDetail from "../views/goodsDetail.vue"
 
 
 // 创建 router 实例
@@ -56,8 +57,30 @@ const router = new VueRouter({
             meta: {
                 title: "我的订单"
             }
+        }, {
+            path: "/goodsDetail/:id",
+            component: GoodsDetail,
+            meta: {
+                title: "商品详情"
+            }
         }
 
     ]
 })
+
+NProgress.configure({
+    showSpinner: false,
+});
+
+// 全局导航（针对所有路由）前守卫
+router.beforeEach((to, from, next) => {
+    NProgress.start();
+    next();
+})
+
+// 全局导航后守卫
+router.afterEach((to, from) => {
+    NProgress.done();
+})
+
 export default router;

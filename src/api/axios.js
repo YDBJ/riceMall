@@ -5,7 +5,7 @@ import {
 } from 'vant';
 
 const instance = axios.create({
-    baseURL: 'http://api.w0824.com/',
+    baseURL: 'http://api.w0824.com/api/',
     timeout: 10000,
 });
 

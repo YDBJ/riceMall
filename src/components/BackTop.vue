@@ -23,7 +23,7 @@ export default {
     methods:{
         scrollHandle(event){
             let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            console.log('scrollTop:',scrollTop)
+            // console.log('scrollTop:',scrollTop)
             if(scrollTop >= this.scrollTop){
                 this.isShow = true;
             }else {
